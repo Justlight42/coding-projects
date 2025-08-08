@@ -11,7 +11,7 @@ public interface SessionDao {
 
     List<Session> getSessionByUserId(int userId);
 
-    Session createSession(GameMode gameMode, int createdByUserId);
+    Session createSession(Session session);
 
     Session endSession(Session session); // Puts the end timer to now and calculates session duration
 

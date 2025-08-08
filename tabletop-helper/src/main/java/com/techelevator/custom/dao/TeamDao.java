@@ -8,11 +8,11 @@ public interface TeamDao {
 
     Team getTeamId(int teamId);
 
-    List<Team> getTeamBySessionId(int sessionId);
+    List<Team> getTeamsBySessionId(int sessionId);
 
-    Team createTeam(int sessionId, String teamName);
+    Team createTeam(Team team);
 
-    Team updateTeamName(int teamId, String teamName);
+    Team updateTeamName(Team team);
 
     int deleteTeam(int teamId);
 
