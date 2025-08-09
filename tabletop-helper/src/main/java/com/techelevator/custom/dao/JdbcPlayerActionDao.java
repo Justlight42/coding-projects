@@ -84,6 +84,35 @@ public class JdbcPlayerActionDao implements PlayerActionDao {
         }
     }
 
+    @Override
+    public PlayerAction revertAction(int actionId) {
+        try {
+            String sql = "UPDATE player_action SET action_reverted = true WHERE action_id = ?";
+            jdbcTemplate.update(sql, actionId);
+            return getActionById(actionId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Error connecting to the server " + e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Error updating a player action with ID: " + actionId, e);
+        }
+    }
+
+//    @Override
+//    public PlayerAction updateAction(PlayerAction playerAction) {
+//        try {
+//            String sql = "UPDATE player_action SET session_id = ?, player_id = ?, action_type = ?, " +
+//                    "amount = ?, action_time = ?, action_reverted = ? WHERE action_id = ?";
+//            jdbcTemplate.update(sql, playerAction.getSessionId(), playerAction.getPlayerId(),
+//                    playerAction.getActionType(), playerAction.getAmount(), playerAction.getActionTime(),
+//                    playerAction.isActionReverted(), playerAction.getActionId());
+//            return getActionById(playerAction.getActionId());
+//        } catch (CannotGetJdbcConnectionException e) {
+//            throw new DaoException("Error connecting to the server " + e);
+//        } catch (DataIntegrityViolationException e) {
+//            throw new DaoException("Error updating a player action " + playerAction, e);
+//        }
+//    }
+
     public static PlayerAction mapRowToPlayerAction(SqlRowSet rowSet) {
         int actionId = rowSet.getInt("action_id");
         int sessionId = rowSet.getInt("session_id");

@@ -113,7 +113,6 @@ public class ExerciseController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Exercise createExercise(@RequestBody Exercise exercise) {
-        System.out.println("error here!!!!!!!!!!!!!!!!!!!!!");
         formatException(exercise);
         Exercise createdExercise = exerciseDao.createExercise(exercise);
         if (createdExercise == null) {

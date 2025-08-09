@@ -68,6 +68,21 @@ public class JdbcPlayerDao implements PlayerDao {
     }
 
     @Override
+    public Player updatePlayer(Player player) {
+        try {
+            String sql = "UPDATE player SET team_id = ?, user_id = ?, player_name = ?, " +
+                    "health = ?, score = ? WHERE player_id = ?";
+            jdbcTemplate.update(sql, player.getTeamId(), player.getUserId(), player.getName(),
+                    player.getHealth(), player.getScore(), player.getPlayerId());
+            return getPlayerById(player.getPlayerId());
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Error connecting to the server " + e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Error updating a player " + player, e);
+        }
+    }
+
+    @Override
     public int deletePlayer(int playerId) {
         try {
             String sqlPlayer = "DELETE FROM player WHERE player_id = ?";

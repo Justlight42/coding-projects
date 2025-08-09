@@ -87,7 +87,7 @@ VALUES
     ('TitanShield', '$2a$10$tmxuYYg1f5T0eXsTPlq/V.DJUKmRHyFbJ.o.liI1T35TFbjs2xiem', 'ROLE_USER');
 
 -- Insert statements for session table
-INSERT INTO sessions (mode, created_by_user_id, end_time, session_duration)
+INSERT INTO sessions (game_mode, created_by_user_id, end_time, session_duration)
 VALUES
   (0, 1, '2025-06-07 10:30:00', 60),
   (1, 2, '2025-06-07 11:00:00', 45),

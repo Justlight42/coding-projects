@@ -12,6 +12,8 @@ public interface PlayerDao {
 
     Player createPlayer(Player player);
 
+    Player updatePlayer(Player player);
+
     int deletePlayer(int playerId);
 
 }

@@ -15,4 +15,7 @@ public interface PlayerActionDao {
 
     PlayerAction createAction(PlayerAction playerAction);
 
+//    PlayerAction updateAction(PlayerAction playerAction);
+
+    PlayerAction revertAction(int actionId);
 }
