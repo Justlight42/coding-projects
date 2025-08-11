@@ -6,6 +6,7 @@ import com.techelevator.custom.model.Player;
 import com.techelevator.custom.model.PlayerAction;
 import com.techelevator.custom.service.PlayerActionService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -65,6 +66,7 @@ public class PlayerActionController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("isAuthenticated")
     PlayerAction createAction(@RequestBody PlayerAction playerAction) {
         PlayerAction action = playerActionDao.createAction(playerAction);
         if (action == null) {
@@ -75,7 +77,12 @@ public class PlayerActionController {
 
     @PutMapping(path = "/{actionId}/revert")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("isAuthenticated")
     Player revertAction(@PathVariable int actionId) {
+        PlayerAction action = playerActionDao.getActionById(actionId);
+        if (action == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to get a player action with ID: " + actionId);
+        }
         return playerActionService.revertAction(actionId);
     }
 

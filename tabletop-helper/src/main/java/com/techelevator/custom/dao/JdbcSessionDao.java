@@ -56,7 +56,7 @@ public class JdbcSessionDao implements SessionDao {
     @Override
     public Session createSession(Session session) {
         try {
-            String sql = "INSERT INTO sessions WHERE (game_mode, created_by_user_id, start_time) VALUES (?, ?, ?) RETURNING session_id";
+            String sql = "INSERT INTO sessions (game_mode, created_by_user_id, start_time) VALUES (?, ?, ?) RETURNING session_id";
             int sessionId = jdbcTemplate.queryForObject(sql, int.class, session.getGameMode(), session.getCreatedById(), session.getStartTime());
             return getSessionById(sessionId);
         } catch (CannotGetJdbcConnectionException e) {

@@ -22,14 +22,7 @@ public class PlayerAction {
         this.actionReverted = actionReverted;
     }
 
-    public PlayerAction(int sessionId, int playerId, String actionType, int amount) {
-        this.sessionId = sessionId;
-        this.playerId = playerId;
-        this.actionType = actionType;
-        this.amount = amount;
-        this.actionTime = LocalDateTime.now();
-        this.actionReverted = false;
-    }
+    public PlayerAction() {}
 
     public int getActionId() {
         return actionId;

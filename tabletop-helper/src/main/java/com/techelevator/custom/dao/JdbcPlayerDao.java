@@ -41,7 +41,7 @@ public class JdbcPlayerDao implements PlayerDao {
     public List<Player> getAllPlayersBySessionId(int sessionId) {
         List<Player> players = new ArrayList<>();
         try {
-            String sql = PLAYER_SELECT + "WHERE session_id = ?";
+            String sql = PLAYER_SELECT + "JOIN player_action pa ON player.player_id = pa.player_id JOIN sessions se ON pa.session_id = se.session_id WHERE se.session_id = ?";
             SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, sessionId);
             while (rowSet.next()) {
                 players.add(mapRowToPlayer(rowSet));
@@ -55,7 +55,7 @@ public class JdbcPlayerDao implements PlayerDao {
     @Override
     public Player createPlayer(Player player) {
         try {
-            String sql = "INSERT INTO player WHERE (team_id, user_id, player_name, health, score) " +
+            String sql = "INSERT INTO player (team_id, user_id, player_name, health, score) " +
                     "VALUES (?, ?, ?, ?, ?) RETURNING player_id";
             int playerId = jdbcTemplate.queryForObject(sql, int.class, player.getTeamId(), player.getUserId(),
                     player.getName(), player.getHealth(), player.getScore());
@@ -98,12 +98,17 @@ public class JdbcPlayerDao implements PlayerDao {
 
     public static Player mapRowToPlayer(SqlRowSet rowSet) {
         int playerId = rowSet.getInt("player_id");
-        Integer teamId = rowSet.getObject("team_id", Integer.class);
-        Integer userId = rowSet.getObject("user_id", Integer.class);
+        Integer teamId = checkIfNull(rowSet, "team_id");
+        Integer userId = checkIfNull(rowSet, "user_id");
         String name = rowSet.getString("player_name");
-        Integer health = rowSet.getObject("health", Integer.class);;
-        Integer score = rowSet.getObject("score", Integer.class);;
+        Integer health = checkIfNull(rowSet, "health");;
+        Integer score =checkIfNull(rowSet, "score");;
         return new Player(playerId, teamId, userId, name, health, score);
+    }
+
+    public static Integer checkIfNull(SqlRowSet rowSet, String name) {
+        int value = rowSet.getInt(name);
+        return rowSet.wasNull() ? null : value;
     }
 
 }

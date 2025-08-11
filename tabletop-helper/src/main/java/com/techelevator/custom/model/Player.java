@@ -18,13 +18,7 @@ public class Player {
         this.score = score;
     }
 
-    public Player(Integer teamId, Integer userId, String name) {
-        this.teamId = teamId;
-        this.userId = userId;
-        this.name = name;
-        this.health = null;
-        this.score = null;
-    }
+    public Player() {}
 
     public int getPlayerId() {
         return playerId;

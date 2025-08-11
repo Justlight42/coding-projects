@@ -10,6 +10,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +20,11 @@ public class JdbcPlayerActionDao implements PlayerActionDao {
 
     private final String PLAYER_ACTION_SELECT = "SELECT * FROM player_action ";
     private final JdbcTemplate jdbcTemplate;
+    private final PlayerDao playerDao;
 
-    public JdbcPlayerActionDao(DataSource dataSource) {
+    public JdbcPlayerActionDao(DataSource dataSource, PlayerDao playerDao) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
+        this.playerDao = playerDao;
     }
 
     @Override
@@ -71,11 +74,24 @@ public class JdbcPlayerActionDao implements PlayerActionDao {
     @Override
     public PlayerAction createAction(PlayerAction playerAction) {
         try {
-            String sql = "INSERT INTO player_action WHERE (session_id, player_id, action_type, " +
-                    "amount, action_time, action_reverted) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO player_action (session_id, player_id, action_type, " +
+                    "amount) VALUES (?, ?, ?, ?) RETURNING action_id";
             int actionId = jdbcTemplate.queryForObject(sql, int.class, playerAction.getSessionId(),
-                    playerAction.getPlayerId(), playerAction.getActionType(), playerAction.getAmount(),
-                    playerAction.getActionTime(), playerAction.isActionReverted());
+                    playerAction.getPlayerId(), playerAction.getActionType(), playerAction.getAmount());
+
+            Player player = playerDao.getPlayerById(playerAction.getPlayerId());
+            String actionType = playerAction.getActionType();
+            int amount = playerAction.getAmount();
+
+            if (actionType.equals("health")) {
+                int newHp = player.getHealth() + amount;
+                player.setHealth(newHp);
+            }
+            if (actionType.equals("score")) {
+                int newScore = player.getScore() + amount;
+                player.setScore(newScore);
+            }
+            playerDao.updatePlayer(player);
             return getActionById(actionId);
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Error connecting to the server " + e);
@@ -119,7 +135,8 @@ public class JdbcPlayerActionDao implements PlayerActionDao {
         int playerId = rowSet.getInt("player_id");
         String actionType = rowSet.getString("action_type"); // Score or Health
         int amount = rowSet.getInt("amount");; // (+/- Score/Health)
-        LocalDateTime actionTime = rowSet.getTimestamp("action_time").toLocalDateTime();
+        Timestamp timestamp = rowSet.getTimestamp("action_time");
+        LocalDateTime actionTime = (timestamp != null) ? timestamp.toLocalDateTime() : null;
         boolean actionReverted = rowSet.getBoolean("action_reverted");
         return new PlayerAction(actionId, sessionId, playerId, actionType, amount, actionTime, actionReverted);
     }
