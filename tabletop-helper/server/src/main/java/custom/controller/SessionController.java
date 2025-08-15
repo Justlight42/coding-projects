@@ -1,8 +1,10 @@
 package custom.controller;
 
 import custom.dao.SessionDao;
+import custom.dto.GameModeDTO;
 import custom.exception.DaoException;
 import custom.model.Session;
+import custom.service.SessionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +19,11 @@ import java.util.List;
 public class SessionController {
 
     private final SessionDao sessionDao;
+    private final SessionService sessionService;
 
-    public SessionController(SessionDao sessionDao) {
+    public SessionController(SessionDao sessionDao, SessionService sessionService) {
         this.sessionDao = sessionDao;
+        this.sessionService = sessionService;
     }
 
     @GetMapping(path = "/{sessionId}")
@@ -79,6 +83,11 @@ public class SessionController {
         if (session == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Could not find session with the ID: " + sessionId);
         }
+    }
+
+    @GetMapping(path = "/game-modes")
+    public List<GameModeDTO> getGameModes() {
+        return sessionService.getGameModes();
     }
 
 }

@@ -43,7 +43,7 @@ export default {
       if (time.hours === 0 && time.minutes === 0 && time.seconds === 0) {
         clearInterval(this.timerInterval);
         this.$store.commit('SET_TIMER_IS_ON', false);
-        return;
+        return alert('Time is Up!');
       }
       if (time.seconds > 0) {
         time.seconds--;

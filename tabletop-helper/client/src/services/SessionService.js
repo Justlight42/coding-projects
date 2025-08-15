@@ -18,6 +18,9 @@ export default {
     },
     deleteSession(sessionId) {
         return axios.delete(`${BASE_SESSION_PATH}/${sessionId}`)
-    }
+    },
+    getGameModes() {
+        return axios.get(`${BASE_SESSION_PATH}/game-modes`)
+    },
 
 }

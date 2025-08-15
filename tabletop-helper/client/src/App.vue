@@ -7,6 +7,9 @@
         </router-link>
       </div>
       <nav>
+        <router-link :to="{ name: 'GamePreviewView', params: {createdById: $store.state.user.id}}">
+          Game
+        </router-link>
         <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token">
           Logout
         </router-link>

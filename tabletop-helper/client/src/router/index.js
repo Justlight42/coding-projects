@@ -7,6 +7,7 @@ import LoginView from '../views/LoginView.vue'
 import LogoutView from '../views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import EditTimerView from '../views/EditTimerView.vue'
+import GamePreviewView from '../views/GamePreviewView.vue'
 
 
 /**
@@ -18,6 +19,14 @@ import EditTimerView from '../views/EditTimerView.vue'
  * If they have (or don't need to) they're allowed to go about their way.
  */
 const routes = [
+    {
+    path: '/game-preview/:createdById',
+    name: 'GamePreviewView',
+    component: GamePreviewView,
+    meta: {
+      requiresAuth: true
+    }
+  },
   {
     path: '/edit-timer',
     name: 'EditTimerView',
