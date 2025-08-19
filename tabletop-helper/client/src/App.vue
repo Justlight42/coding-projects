@@ -7,7 +7,7 @@
         </router-link>
       </div>
       <nav>
-        <router-link :to="{ name: 'GamePreviewView', params: {createdById: $store.state.user.id}}">
+        <router-link :to="{ name: 'GamePreviewView'}">
           Game
         </router-link>
         <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token">
@@ -192,6 +192,13 @@ form div {
   margin-bottom: 1.5rem;
 }
 
+form h1 {
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
 .fake-button {
   padding: 0.75rem 1.5rem;
   background-color: lightsteelblue;
@@ -220,6 +227,11 @@ form div {
   margin-left: 40px;
 }
 
+.submit-button {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+}
 
 
 </style>

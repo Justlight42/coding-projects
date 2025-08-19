@@ -12,7 +12,7 @@
             <option v-for="second in 60" :key="second" :value="second - 1">{{ second - 1 }} {{ second - 1 === 1 ? 'sec' : 'secs' }}</option>
         </select>
     </div>
-    <router-link to="/">Back</router-link>
+    <router-link to="/">Set</router-link>
   </div>
 </template>
 

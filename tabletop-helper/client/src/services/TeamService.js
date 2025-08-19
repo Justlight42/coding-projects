@@ -8,7 +8,7 @@ export default {
         return axios.get(`${BASE_TEAM_PATH}/${teamId}`)
     },
     getTeamsBySessionId(sessionId) {
-        return axios.get(`${BASE_TEAM_PATH}/${sessionId}`)
+        return axios.get(`${BASE_TEAM_PATH}/session/${sessionId}`)
     },
     createTeam(team) {
         return axios.post(`${BASE_TEAM_PATH}`, team)

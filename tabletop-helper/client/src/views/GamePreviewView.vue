@@ -9,6 +9,12 @@
                 {{ gameMode.name }}
             </option>
         </select>
+        <label for="groups">Select Either Team or Individuals</label>
+        <select v-model="selectedGroup" name="groups" id="groups">
+            <option v-for="group in groups" :key="group" :value="group">
+                {{ group }}
+            </option>
+        </select>
         <label for="user">Session Owner</label>
         <input
           type="text"
@@ -19,7 +25,7 @@
         />
       </div>
       <div class="submit-button">
-        <button type="submit">Submit</button>  <!-- Needs to submit and createSession will route to player-->
+        <button type="submit">Submit</button>  <!-- Needs to submit and createSession will route to player--> <!-- Needs to also route if player or team is selected-->
       </div>
       <hr/>
     </form>
@@ -37,6 +43,8 @@ export default {
                 createdById: this.$store.state.user.id
             },
             gameModes: [],
+            groups: ['Individuals', 'Team'],
+            selectedGroup: 'Individuals',
         };
     },
     methods: {
@@ -46,8 +54,12 @@ export default {
             })
         },
         createSession() {
-            SessionService.createSession(this.session).then(() => {
-                this.$router.push({ name: "home"}) // PLACEHOLDER, REPLACE WHEN PLAYER ADD IS CREATED
+            SessionService.createSession(this.session).then((response) => {
+                if (this.selectedGroup === 'Team') {
+                    this.$router.push({ name: "AddTeamView", params: {sessionId: response.data.sessionId}, query: {group: this.selectedGroup, gameMode: this.session.gameMode}});
+                } else {
+                    this.$router.push({ name: "AddPlayerView", params: {sessionId: response.data.sessionId}, query: {group: this.selectedGroup, gameMode: this.session.gameMode}}) 
+                }
             })
             .catch((error) => {
                 console.log('Error occurred when creating a session.')

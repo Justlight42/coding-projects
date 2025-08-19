@@ -8,6 +8,8 @@ import LogoutView from '../views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import EditTimerView from '../views/EditTimerView.vue'
 import GamePreviewView from '../views/GamePreviewView.vue'
+import AddTeamView from '../views/AddTeamView.vue'
+import AddPlayerView from '../views/AddPlayerView.vue'
 
 
 /**
@@ -19,8 +21,24 @@ import GamePreviewView from '../views/GamePreviewView.vue'
  * If they have (or don't need to) they're allowed to go about their way.
  */
 const routes = [
+  {
+    path: '/createPlayer/:sessionId',
+    name: 'AddPlayerView',
+    component: AddPlayerView,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/createTeam/:sessionId',
+    name: 'AddTeamView',
+    component: AddTeamView,
+    meta: {
+      requiresAuth: true
+    }
+  },
     {
-    path: '/game-preview/:createdById',
+    path: '/game-preview',
     name: 'GamePreviewView',
     component: GamePreviewView,
     meta: {
