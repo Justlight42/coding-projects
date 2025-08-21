@@ -42,12 +42,14 @@ CREATE TABLE team (
 
 CREATE TABLE player (
     player_id SERIAL,
+    session_id int NOT NULL,
     team_id int,
     user_id int,
     player_name varchar(100) NOT NULL,
     health int,
     score int DEFAULT 0,
     CONSTRAINT PK_player PRIMARY KEY (player_id),
+    CONSTRAINT FK_session_player FOREIGN KEY (session_id) REFERENCES sessions(session_id) ON DELETE CASCADE,
     CONSTRAINT FK_team FOREIGN KEY (team_id) REFERENCES team(team_id) ON DELETE SET NULL,
     CONSTRAINT FK_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
@@ -125,23 +127,23 @@ VALUES
   (15, 'Team Oscar');
 
 -- Insert statements for player table
-INSERT INTO player (team_id, user_id, player_name, health, score)
+INSERT INTO player (session_id, team_id, user_id, player_name, health, score)
 VALUES
-  (1, 1, 'Player1', 100,  0),
-  (2, 2, 'Player2',  95,  5),
-  (3, 3, 'Player3',  90, 10),
-  (4, 4, 'Player4',  85, 15),
-  (5, 5, 'Player5',  80, 20),
-  (6, 6, 'Player6', 100, 25),
-  (7, 7, 'Player7',  95, 30),
-  (8, 8, 'Player8',  90, 35),
-  (9, 9, 'Player9',  85, 40),
-  (10,10,'Player10', 80, 45),
-  (11, 1, 'Player11',100, 50),
-  (12, 2, 'Player12', 95, 55),
-  (13, 3, 'Player13', 90, 60),
-  (14, 4, 'Player14', 85, 65),
-  (15, 5, 'Player15', 80, 70);
+  (1, 1, 1, 'Player1', 100,  0),
+  (2, 2, 2, 'Player2',  95,  5),
+  (3, 3, 3, 'Player3',  90, 10),
+  (4, 4, 4, 'Player4',  85, 15),
+  (5, 5, 5, 'Player5',  80, 20),
+  (6, 6, 6, 'Player6', 100, 25),
+  (7, 7, 7, 'Player7',  95, 30),
+  (8, 8, 8, 'Player8',  90, 35),
+  (9, 9, 9, 'Player9',  85, 40),
+  (10, 10,10,'Player10', 80, 45),
+  (11, 11, 1, 'Player11',100, 50),
+  (12, 12, 2, 'Player12', 95, 55),
+  (13, 13, 3, 'Player13', 90, 60),
+  (14, 14, 4, 'Player14', 85, 65),
+  (15, 15, 5, 'Player15', 80, 70);
 
 -- Insert statements for player_action table
 INSERT INTO player_action (session_id, player_id, action_type, amount)

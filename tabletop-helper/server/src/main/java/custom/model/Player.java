@@ -3,14 +3,16 @@ package custom.model;
 public class Player {
 
     private int playerId;
+    private int sessionId;
     private Integer teamId;
     private Integer userId;
     private String name;
     private Integer health;
     private Integer score;
 
-    public Player(int playerId, Integer teamId, Integer userId, String name, Integer health, Integer score) {
+    public Player(int playerId, int sessionId, Integer teamId, Integer userId, String name, Integer health, Integer score) {
         this.playerId = playerId;
+        this.sessionId = sessionId;
         this.teamId = teamId;
         this.userId = userId;
         this.name = name;
@@ -22,6 +24,10 @@ public class Player {
 
     public int getPlayerId() {
         return playerId;
+    }
+
+    public int getSessionId() {
+        return sessionId;
     }
 
     public Integer getTeamId() {

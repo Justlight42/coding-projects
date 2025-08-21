@@ -7,7 +7,7 @@ export default {
     getPlayerById(playerId) {
         return axios.get(`${BASE_PLAYER_PATH}/${playerId}`)
     },
-    getAllPlayersBySessionId(sessionId) {
+    getPlayerInSession(sessionId) {
         return axios.get(`${BASE_PLAYER_PATH}/session/${sessionId}`)
     },
     createPlayer(player) {

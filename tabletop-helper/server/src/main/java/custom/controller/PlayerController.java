@@ -1,6 +1,7 @@
 package custom.controller;
 
 import custom.dao.PlayerDao;
+import custom.dto.PlayerViewDTO;
 import custom.exception.DaoException;
 import custom.model.Player;
 import org.springframework.http.HttpStatus;
@@ -33,13 +34,13 @@ public class PlayerController {
     }
 
     @GetMapping(path = "/session/{sessionId}")
-    public List<Player> getAllPlayersBySessionId(@PathVariable int sessionId) {
+    public List<PlayerViewDTO> getPlayerInSession(@PathVariable int sessionId) {
         try {
-            List<Player> playerlist = playerDao.getAllPlayersBySessionId(sessionId);
-            if (playerlist.isEmpty()) {
+            List<PlayerViewDTO> playerViewDTOList = playerDao.getPlayerInSession(sessionId);
+            if (playerViewDTOList.isEmpty()) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Could not find players with the session ID: " + sessionId);
             }
-            return playerlist;
+            return playerViewDTOList;
         } catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not get players in the session: " + sessionId + e.getMessage());
         }
@@ -60,7 +61,7 @@ public class PlayerController {
     @PreAuthorize("isAuthenticated")
     public Player updatePlayer(@RequestBody Player player, @PathVariable int playerId) {
         checkIfPlayerExist(playerId);
-        Player updatePlayer = new Player(playerId, player.getTeamId(), player.getUserId(), player.getName(), player.getHealth(), player.getScore());
+        Player updatePlayer = new Player(playerId, player.getSessionId(), player.getTeamId(), player.getUserId(), player.getName(), player.getHealth(), player.getScore());
         return playerDao.updatePlayer(updatePlayer);
     }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="session-list">
-    <SessionCard v-for="session in $store.state.sessions" :key="session.sessionId" :session="session"/>
+    <SessionCard v-for="session in sessions" :key="session.sessionId" :session="session"/>
   </div>
 </template>
 
@@ -11,6 +11,12 @@ export default {
     components: {
         SessionCard,
     },
+    props: {
+      sessions: {
+        type: Array,
+        required: true
+      }
+    }
 }
 </script>
 

@@ -10,6 +10,7 @@ import EditTimerView from '../views/EditTimerView.vue'
 import GamePreviewView from '../views/GamePreviewView.vue'
 import AddTeamView from '../views/AddTeamView.vue'
 import AddPlayerView from '../views/AddPlayerView.vue'
+import GameView from '../views/GameView.vue'
 
 
 /**
@@ -21,6 +22,14 @@ import AddPlayerView from '../views/AddPlayerView.vue'
  * If they have (or don't need to) they're allowed to go about their way.
  */
 const routes = [
+  {
+    path: '/game/:sessionId',
+    name: 'GameView',
+    component: GameView,
+    meta: {
+      requiresAuth: true
+    }
+  },
   {
     path: '/createPlayer/:sessionId',
     name: 'AddPlayerView',

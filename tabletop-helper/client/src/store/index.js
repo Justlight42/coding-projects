@@ -9,7 +9,6 @@ export function createStore(currentToken, currentUser) {
       playerActions: [],
       players: [],
       sessions: [],
-      team: [],
       timer: {
         hours: 0,
         minutes: 0,
@@ -51,7 +50,11 @@ export function createStore(currentToken, currentUser) {
         state.timer.minutes = 0;
         state.timer.seconds = 0;
         state.timerIsOn = false;
-      }
+      },
+      SET_PLAYERS(state, players) {
+        state.players = players;
+      },
+
     },
 
   })
