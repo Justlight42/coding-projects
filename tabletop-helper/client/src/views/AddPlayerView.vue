@@ -24,7 +24,7 @@
       </div>
       <div class="submit-button">
         <button type="submit">Submit</button>  
-        <router-link class="fake-button" :to="{name: 'GameView', params: {sessionId: this.$route.params.sessionId}}">Start Game</router-link>
+        <router-link class="fake-button" :to="{name: 'GameView', params: {sessionId: this.$route.params.sessionId}, query: {gameMode: this.gameMode }}">Start Game</router-link>
       </div>
       <hr />
     </form>

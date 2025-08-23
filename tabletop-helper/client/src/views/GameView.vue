@@ -2,7 +2,7 @@
   <div class="game-view">
     <CountdownTimer />
     <SessionTimer v-if="session && session.startTime" :session="session"/>
-    <PlayerList :players="players"/>
+    <PlayerList />
   </div>
 </template>
 
@@ -23,11 +23,6 @@ export default {
     return {
       session: {}
     };
-  },
-  computed: {
-    players() {
-      return this.$store.state.players;
-    },
   },
   methods: {
     getPlayerInSession() {

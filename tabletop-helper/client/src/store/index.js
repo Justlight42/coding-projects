@@ -54,6 +54,20 @@ export function createStore(currentToken, currentUser) {
       SET_PLAYERS(state, players) {
         state.players = players;
       },
+      UPDATE_PLAYER_STATE(state, updatedPlayer) {
+        if (!updatedPlayer || !updatedPlayer.playerId) {
+          console.warn('Invalid player object:', updatedPlayer);
+          return;
+        }
+        const index = state.players.findIndex(p => p.playerId === updatedPlayer.playerId);
+        const playerCopy = { ...updatedPlayer };
+
+        if (index === -1) {
+          state.players.push(playerCopy);
+        } else {
+          state.players.splice(index, 1, playerCopy);
+        }
+      },
 
     },
 

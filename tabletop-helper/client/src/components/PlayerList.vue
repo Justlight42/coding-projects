@@ -1,6 +1,6 @@
 <template>
     <div class="player-list">
-        <PlayerCard v-for="player in players" :key="player.playerId" :player="player" />
+        <PlayerCard v-for="player in players" :key="player.playerId" :playerId="player.playerId" />
     </div>
 </template>
 
@@ -11,12 +11,11 @@ export default {
     components: {
         PlayerCard,
     },
-    props: {
-        players: {
-            type: Array,
-            required: true
+    computed: {
+        players() {
+            return this.$store.state.players
         }
-    }
+    },
 }
 
 </script>
