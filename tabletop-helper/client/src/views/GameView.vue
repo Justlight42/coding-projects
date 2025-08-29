@@ -1,7 +1,9 @@
 <template>
   <div class="game-view">
-    <CountdownTimer />
-    <SessionTimer v-if="session && session.startTime" :session="session"/>
+    <div class="game-timers">
+      <CountdownTimer />
+      <SessionTimer v-if="session && session.startTime" :session="session" />
+    </div>
     <PlayerList />
   </div>
 </template>
@@ -49,6 +51,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.game-timers {
+  display: flex;
+}
+
+::v-deep .countdown-timer {
+  display: flex;
+  flex-direction: row;
+}
+
+::v-deep .countdown-timer h2 {
+  font-size: 20px;
+}
 
 </style>

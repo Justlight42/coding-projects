@@ -70,4 +70,24 @@ export default {
 
 <style>
 
+.countdown-timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  height: 100%;
+  width: 100%;
+}
+
+.timer-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.countdown-timer h2 {
+  font-size: 50px;
+}
+
 </style>

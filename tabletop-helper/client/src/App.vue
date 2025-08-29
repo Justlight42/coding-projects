@@ -113,6 +113,9 @@ main {
   background-color: rgb(230, 216, 181);
   grid-area: main;
   overflow: auto;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
 }
 
 footer {
