@@ -20,6 +20,13 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
+
+.player-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+}
 
 </style>

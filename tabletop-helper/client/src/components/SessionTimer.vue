@@ -1,10 +1,12 @@
 <template>
   <div class="session-timer">
-    <p>Session Time : {{ formattedTime }}</p>
+    <p>Session Time: </p>
+    <p>{{ formattedTime }}</p>
   </div>
 </template>
 
 <script>
+
 export default {
   props: {
     session: {
@@ -48,3 +50,15 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+
+.session-timer {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+</style>

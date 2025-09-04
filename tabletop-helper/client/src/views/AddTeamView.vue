@@ -14,7 +14,7 @@
         />
       </div>
       <div class="submit-button">
-        <button type="submit">Submit</button>  
+        <button type="submit">Create Team</button>  
         <router-link class="fake-button" :to="{name: 'AddPlayerView', query: {group: selectedGroup, gameMode: gameMode}}">Next</router-link>
       </div>
       <hr/>

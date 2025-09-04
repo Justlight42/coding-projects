@@ -1,4 +1,5 @@
 <template>
+    <div class="edit-timer-view">
   <div class="edit-timer">
     <h3>Set the Timer</h3>
     <div class="timer-selector">
@@ -12,7 +13,8 @@
             <option v-for="second in 60" :key="second" :value="second - 1">{{ second - 1 }} {{ second - 1 === 1 ? 'sec' : 'secs' }}</option>
         </select>
     </div>
-    <button @click="$router.back()">Set</button>
+    <button id="router-back" @click="$router.back()">Set</button>
+  </div>
   </div>
 </template>
 
@@ -33,6 +35,34 @@ export default {
 }
 </script>
 
-<style>
+<style scoped> 
+
+.edit-timer-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 96vh;
+    width: 100%;
+}
+
+.edit-timer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-timer h3 {
+    font-size: 20px;
+}
+
+.timer-selector {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+    font-size: 20px
+}
+
+
 
 </style>

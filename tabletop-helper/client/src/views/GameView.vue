@@ -57,6 +57,7 @@ export default {
   display: flex;
 }
 
+/* Comes from CountdownTimer.vue */
 ::v-deep .countdown-timer {
   display: flex;
   flex-direction: row;

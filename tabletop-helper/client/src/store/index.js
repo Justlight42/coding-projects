@@ -60,12 +60,13 @@ export function createStore(currentToken, currentUser) {
           return;
         }
         const index = state.players.findIndex(p => p.playerId === updatedPlayer.playerId);
-        const playerCopy = { ...updatedPlayer };
 
         if (index === -1) {
-          state.players.push(playerCopy);
+          state.players.push( ...updatedPlayer);
         } else {
-          state.players.splice(index, 1, playerCopy);
+          const oldPlayer = state.players[index];
+          const mergedPlayer = { ...oldPlayer, ...updatedPlayer}
+          state.players.splice(index, 1, mergedPlayer);
         }
       },
 

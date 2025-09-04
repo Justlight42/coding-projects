@@ -1,13 +1,17 @@
 <template>
   <div class="player-card">
+    <div class="player-info">
     <h2>{{ displayPlayer.name }}</h2>
-    <p v-if="displayPlayer.teamName != null">Team Name: {{ displayPlayer.teamName }}</p>
+    <h2 v-if="displayPlayer.teamName != null">Team: {{ displayPlayer.teamName }}</h2>
+    </div>
+    <div class="player-scoring">
     <p v-if="displayPlayer.health != null">Health: {{ displayPlayer.health }}</p>
     <p v-if="displayPlayer.score != null">Score: {{ displayPlayer.score }}</p>
+    </div>
     
     <div class="playerAction-controls">
       <button @click="switchSigns">
-        {{ sign === '+' ? 'Add' : 'Subtract' }}
+        {{ sign === '+' ? '+' : '-' }}
       </button>
       <input type="number" v-model.number="amount" placeholder="Enter Amount">
       <button @click="changeValue">Apply</button>
@@ -67,6 +71,42 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.player-card {
+  display: grid;
+  grid-template-rows: auto auto;
+  background-color: gray;
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.player-info {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.player-info h2 {
+  font-size: 30px;
+}
+
+.player-scoring {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
+.player-scoring p {
+  font-size: 30px;
+}
+
+.playerAction-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
 
 </style>
