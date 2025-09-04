@@ -9,7 +9,7 @@ public interface PlayerDao {
 
     Player getPlayerById(int playerId);
 
-    public List<PlayerViewDTO> getPlayerInSession(int sessionId);
+    List<PlayerViewDTO> getPlayerInSession(int sessionId);
 
     Player createPlayer(Player player);
 
