@@ -7,15 +7,23 @@
         </router-link>
       </div>
       <nav>
-        <router-link :to="{ name: 'home'}">
-          Calender
-        </router-link>
-        <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token">
-          Logout
-        </router-link>
-        <router-link v-bind:to="{ name: 'login' }" v-else>
-          Login
-        </router-link>
+        <div class="profile-dropdown">
+          <img src="/img/profile-placeholder.png" alt="Profile" @click="toggleDropdown" />
+          <div v-if="showDropdown" class="dropdown-menu">
+            <router-link :to="{ name: 'SubscriptionView' }">
+              My Subscriptions
+            </router-link>
+            <router-link :to="{ name: 'home' }">
+              Calender
+            </router-link>
+            <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token">
+              Logout
+            </router-link>
+            <router-link v-bind:to="{ name: 'login' }" v-else>
+              Login
+            </router-link>
+          </div>
+        </div>
       </nav>
     </header>
 
@@ -26,6 +34,22 @@
   </div>
 </template>
 
+<script>
+
+export default {
+  data() {
+    return {
+      showDropdown: false
+    }
+  },
+  methods: {
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown;
+    }
+  }
+}
+</script>
+
 <style>
 
 * {
@@ -34,9 +58,9 @@
   box-sizing: border-box;
 }
 
-#tabletop-app {
+#subReminder-app {
   box-sizing: border-box;
-  height: 98vh;
+  height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   background-color: lightsteelblue;
   display: grid;
@@ -54,7 +78,7 @@ header nav {
   display: flex;
   flex-grow: .25;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: flex-end;
 }
 
 header div {
@@ -63,9 +87,35 @@ header div {
   align-items: center;
 }
 
-header img {
-  height: 100px;
-  width: auto;
+.profile-dropdown img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.profile-dropdown {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: flex-end; 
+  margin-left: auto;
+  margin-right: 20px
+}
+
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  top: calc(100% + 5px); 
+  min-width: 100px;
+  background-color: lightgray;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  gap: 0.5rem;
 }
 
 header h1 {
@@ -81,7 +131,7 @@ header {
   align-content: center;
   justify-content: center;
   display: flex;
-  background-color: mintcream;
+  background-color: rgb(159, 222, 241);
 }
 
 header form {
@@ -110,7 +160,7 @@ footer {
 }
 
 main {
-  background-color: rgb(230, 216, 181);
+  background-color: rgb(129, 128, 125);
   grid-area: main;
   overflow: auto;
   display: flex;
@@ -119,7 +169,7 @@ main {
 }
 
 footer {
-  background-color: mintcream;
+  background-color: rgb(159, 222, 241);
   grid-area: footer;
 }
 
@@ -202,6 +252,13 @@ form h1 {
   margin-bottom: 8px;
 }
 
+form span {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 5px;
+}
+
 .fake-button {
   padding: 0.75rem 1.5rem;
   background-color: lightsteelblue;
@@ -232,9 +289,11 @@ form h1 {
 
 .submit-button {
   display: flex;
-  justify-content: end;
+  justify-content: center;
   gap: 10px;
 }
+
+
 
 
 </style>

@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @PreAuthorize("isAuthenticated")
 @RequestMapping(path = "api/sub")

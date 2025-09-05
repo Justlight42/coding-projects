@@ -6,12 +6,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import LogoutView from '../views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
-import EditTimerView from '../views/EditTimerView.vue'
-import GamePreviewView from '../views/GamePreviewView.vue'
-import AddTeamView from '../views/AddTeamView.vue'
-import AddPlayerView from '../views/AddPlayerView.vue'
-import GameView from '../views/GameView.vue'
-
+import SubscriptionView from '../views/SubscriptionView.vue'
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -22,7 +17,14 @@ import GameView from '../views/GameView.vue'
  * If they have (or don't need to) they're allowed to go about their way.
  */
 const routes = [
-    
+    {
+      path: '/mySubs',
+      name: 'SubscriptionView',
+      component: SubscriptionView,
+      meta: {
+        requiresAuth: true
+      }
+    },
     {
       path: '/',
       name: 'home',
