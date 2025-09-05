@@ -16,19 +16,21 @@ public class User {
    private String username;
    @JsonIgnore
    private String hashedPassword;
+   private String email;
    private String role;
 
    public User() { }
 
-   public User(int id, String username, String hashedPassword, String role) {
+   public User(int id, String username, String hashedPassword, String email, String role) {
       this.id = id;
       this.username = username;
       this.hashedPassword = hashedPassword;
+      this.email = email;
       this.role = role;
    }
 
-   public User(String username, String hashedPassword, String role) {
-      this(0, username, hashedPassword, role);
+   public User(String username, String hashedPassword, String email, String role) {
+      this(0, username, hashedPassword, email, role);
    }
 
    public int getId() {
@@ -53,6 +55,14 @@ public class User {
 
    public void setHashedPassword(String hashedPassword) {
       this.hashedPassword = hashedPassword;
+   }
+
+   public String getEmail() {
+      return email;
+   }
+
+   public void setEmail(String email) {
+      this.email = email;
    }
 
    public String getRole() {

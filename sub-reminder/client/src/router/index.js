@@ -22,46 +22,7 @@ import GameView from '../views/GameView.vue'
  * If they have (or don't need to) they're allowed to go about their way.
  */
 const routes = [
-  {
-    path: '/game/:sessionId',
-    name: 'GameView',
-    component: GameView,
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: '/createPlayer/:sessionId',
-    name: 'AddPlayerView',
-    component: AddPlayerView,
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: '/createTeam/:sessionId',
-    name: 'AddTeamView',
-    component: AddTeamView,
-    meta: {
-      requiresAuth: true
-    }
-  },
-    {
-    path: '/game-preview',
-    name: 'GamePreviewView',
-    component: GamePreviewView,
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: '/edit-timer',
-    name: 'EditTimerView',
-    component: EditTimerView,
-    meta: {
-      requiresAuth: false
-    }
-  },
+    
     {
       path: '/',
       name: 'home',

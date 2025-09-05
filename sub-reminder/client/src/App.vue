@@ -1,14 +1,14 @@
 <template>
-  <div id="tabletop-app">
+  <div id="subReminder-app">
     <header>
       <div class="header-left">
         <router-link class="router-style" v-bind:to="{ name: 'home' }">
-          Tabletop Helper
+          Sub Reminder
         </router-link>
       </div>
       <nav>
-        <router-link :to="{ name: 'GamePreviewView'}">
-          Game
+        <router-link :to="{ name: 'home'}">
+          Calender
         </router-link>
         <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token">
           Logout
@@ -22,7 +22,7 @@
     <main>
       <router-view />
     </main>
-    <footer>&copy; Tabletop Helper. All Rights Reserved</footer>
+    <footer>&copy; Sub Helper. All Rights Reserved</footer>
   </div>
 </template>
 

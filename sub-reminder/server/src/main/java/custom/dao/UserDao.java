@@ -11,6 +11,8 @@ public interface UserDao {
 
     User getUserByUsername(String username);
 
+    User getUserByEmail(String email);
+
     User createUser(User newUser);
 
     int deleteUser(int userId);

@@ -20,7 +20,6 @@ CREATE TABLE users (
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
-
 CREATE TABLE subscriptions (
     sub_id SERIAL,
     user_id int NOT NULL,
@@ -36,7 +35,7 @@ CREATE TABLE subscriptions (
 CREATE TABLE reminders (
     reminder_id SERIAL,
     sub_id int NOT NULL,
-    reminder_date date,
+    reminder_date date NOT NULL,
     sent boolean DEFAULT FALSE,
     CONSTRAINT PK_reminder PRIMARY KEY (reminder_id),
     CONSTRAINT FK_sub_id FOREIGN KEY (sub_id) REFERENCES subscriptions(sub_id) ON DELETE CASCADE
@@ -80,6 +79,5 @@ VALUES
     (4, '2025-12-30', FALSE),  -- Amazon Prime yearly reminder
     (5, '2025-09-10', TRUE),   -- Notion reminder already sent
     (6, '2025-09-16', FALSE);  -- GitHub Copilot reminder upcoming
-
 
 COMMIT TRANSACTION;

@@ -9,14 +9,16 @@ public interface SubscriptionDao {
 
     Subscription getSubById(int subId);
 
-    List<Subscription> getAllSubsByUserId(int userId);
-
-    List<Subscription> getAllUpcomingBilling(LocalDate billDate);
+    List<Subscription> getAllSubsByUserId(int userId, boolean orderByDate);
 
     Subscription createSub(Subscription newSub);
 
-    Subscription updateBillingDate(int subId, LocalDate newDate);
+    Subscription updateSub(Subscription sub);
+
+    Subscription updateBillingDate(int subId, LocalDate updateDate);
 
     int deleteSub(int subId);
+
+    List<Subscription> getSubsNeedRefresh();
 
 }

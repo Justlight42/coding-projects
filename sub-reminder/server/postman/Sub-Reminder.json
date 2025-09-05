@@ -1,0 +1,432 @@
+{
+	"info": {
+		"_postman_id": "98cbfdd4-a88e-4dc2-a047-8dcb680fec05",
+		"name": "Sub Reminder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43959087",
+		"_collection_link": "https://justintruong-1773667.postman.co/workspace/Justin-Truong's-Workspace~b7f83566-1468-418b-8ae4-cac08ccfe6b6/collection/43959087-98cbfdd4-a88e-4dc2-a047-8dcb680fec05?action=share&source=collection_link&creator=43959087"
+	},
+	"item": [
+		{
+			"name": "Reminders Request",
+			"item": [
+				{
+					"name": "Get Reminders By ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/reminder/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reminder",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Reminders By User ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/reminder/list/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reminder",
+								"list",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create A Reminder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"subId\": 1,\r\n    \"reminderDate\": \"2025-09-13\",\r\n    \"sent\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/reminder",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reminder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Reminder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"subId\": 1,\r\n    \"reminderDate\": \"2025-09-17\",\r\n    \"sent\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/reminder/7",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reminder",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Reminder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/reminder/7",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"reminder",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Subscriptions Request",
+			"item": [
+				{
+					"name": "Get Sub By ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sub/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sub",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Subs By User ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sub/user/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sub",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Subscription",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"subName\": \"Hulu\",\r\n    \"cost\": 15.99,\r\n    \"billingCycle\": \"monthly\",\r\n    \"nextBilling\": \"2025-09-04\",\r\n    \"siteURL\": \"https://www.Hulu.com\"  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/sub",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sub"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Subscription",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/sub/7",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"sub",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Request",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user1\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"mike\",\r\n    \"password\": \"password\",\r\n    \"confirmPassword\": \"password\",\r\n    \"email\": \"user10@example.com\",\r\n    \"role\": \"ROLE_USER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "baseUrl",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}

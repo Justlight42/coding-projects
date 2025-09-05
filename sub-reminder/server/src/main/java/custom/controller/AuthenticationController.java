@@ -69,8 +69,11 @@ public class AuthenticationController {
             if (userDao.getUserByUsername(newUser.getUsername()) != null) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists.");
             }
+            if (userDao.getUserByEmail(newUser.getEmail()) != null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email has already been taken.");
+            }
 
-            User user = userDao.createUser(new User(newUser.getUsername(), newUser.getPassword(), newUser.getRole()));
+            User user = userDao.createUser(new User(newUser.getUsername(), newUser.getPassword(), newUser.getEmail(), newUser.getRole()));
             return user;
         }
         catch (DaoException e) {

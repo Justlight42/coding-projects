@@ -1,62 +1,35 @@
 BEGIN TRANSACTION;
 
-INSERT INTO users (username, password_hash, role)
+INSERT INTO users (username, password_hash, email, role)
 VALUES
-    ('JustinG', 'hashedpassword1', 'ROLE_ADMIN'),
-    ('PlayerOne', 'hashedpassword2', 'ROLE_USER'),
-    ('GamerX', 'hashedpassword3', 'ROLE_USER'),
-    ('ShadowHunter', 'hashedpassword4', 'ROLE_USER'),
-    ('Speedster', 'hashedpassword5', 'ROLE_USER'),
-    ('StealthNinja', 'hashedpassword6', 'ROLE_USER'),
-    ('CyberWarrior', 'hashedpassword7', 'ROLE_USER'),
-    ('EliteSniper', 'hashedpassword8', 'ROLE_USER'),
-    ('HyperSpeed', 'hashedpassword9', 'ROLE_USER'),
-    ('TitanShield', 'hashedpassword10', 'ROLE_USER');
+    ('user1', 'hashedpassword1', 'user1@example.com', 'ROLE_USER'),
+    ('user2', 'hashedpassword2', 'user2@example.com', 'ROLE_USER'),
+    ('user3', 'hashedpassword3', 'user3@example.com', 'ROLE_USER'),
+    ('user4', 'hashedpassword4', 'user4@example.com', 'ROLE_USER'),
+    ('user5', 'hashedpassword5', 'user5@example.com', 'ROLE_USER'),
+    ('user6', 'hashedpassword6', 'user6@example.com', 'ROLE_USER'),
+    ('user7', 'hashedpassword7', 'user7@example.com', 'ROLE_USER'),
+    ('user8', 'hashedpassword8', 'user8@example.com', 'ROLE_USER'),
+    ('user9', 'hashedpassword9', 'user9@example.com', 'ROLE_USER');
 
-INSERT INTO game_mode (mode_name)
+-- Insert statements for subscriptions table
+INSERT INTO subscriptions (user_id, sub_name, cost, billing_cycle, next_billing_date, site_url)
 VALUES
-    ('Score Mode'),
-    ('Health Mode'),
-    ('Hybrid Mode');
+    (1, 'Netflix', 15.99, 'monthly', '2025-09-15', 'https://www.netflix.com'),
+    (1, 'Spotify Premium', 9.99, 'monthly', '2025-09-10', 'https://www.spotify.com'),
+    (2, 'Adobe Creative Cloud', 52.99, 'monthly', '2025-09-20', 'https://www.adobe.com'),
+    (2, 'Amazon Prime', 139.00, 'yearly', '2026-01-05', 'https://www.amazon.com/prime'),
+    (3, 'Notion Pro', 8.00, 'monthly', '2025-09-12', 'https://www.notion.so'),
+    (3, 'GitHub Copilot', 10.00, 'monthly', '2025-09-18', 'https://github.com/features/copilot');
 
-INSERT INTO sessions (mode_id, created_by_user_id, end_time, timer_duration)
+-- Insert statements for reminders table
+INSERT INTO reminders (sub_id, reminder_date, sent)
 VALUES
-    (1, 1, '2025-06-07 18:30:00', 60),
-    (2, 2, '2025-06-07 19:00:00', 45),
-    (3, 3, NULL, 30), -- ongoing session
-    (1, 4, '2025-06-07 20:30:00', 55),
-    (2, 5, NULL, 50); -- ongoing session
-
-INSERT INTO team (session_id, team_name)
-VALUES
-    (1, 'Red Warriors'),
-    (1, 'Blue Strikers'),
-    (2, 'Shadow Masters'),
-    (3, 'Storm Guardians'),
-    (4, 'Inferno Hawks');
-
-INSERT INTO player (team_id, user_id, name, health, score)
-VALUES
-    (1, 1, 'JustinG', 100, 0),
-    (1, 2, 'PlayerOne', 90, 10),
-    (2, 3, 'GamerX', 95, 20),
-    (3, 4, 'ShadowHunter', 85, 15),
-    (4, 5, 'Speedster', 80, 30);
-
-INSERT INTO player_action (session_id, player_id, action_type, amount)
-VALUES
-    (1, 1, 'score', 10),
-    (1, 2, 'health', -5),
-    (2, 3, 'score', 20),
-    (3, 4, 'health', -10),
-    (4, 5, 'score', 25);
-
-INSERT INTO user_session (user_id, session_id)
-VALUES
-    (1, 1),
-    (2, 1),
-    (3, 2),
-    (4, 3),
-    (5, 4);
+    (1, '2025-09-13', FALSE),  -- Netflix reminder 2 days before billing
+    (2, '2025-09-08', TRUE),   -- Spotify reminder already sent
+    (3, '2025-09-18', FALSE),  -- Adobe reminder 2 days before billing
+    (4, '2025-12-30', FALSE),  -- Amazon Prime yearly reminder
+    (5, '2025-09-10', TRUE),   -- Notion reminder already sent
+    (6, '2025-09-16', FALSE);  -- GitHub Copilot reminder upcoming
 
 COMMIT TRANSACTION;

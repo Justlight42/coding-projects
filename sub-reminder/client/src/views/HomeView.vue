@@ -1,16 +1,14 @@
 <template>
   <div class="home">
-      <CounterDownTimer />
+      
   </div>
 </template>
 
 <script>
-import CounterDownTimer from "../components/CountdownTimer.vue"
+
 
 export default {
-  components: {
-    CounterDownTimer,
-  },
+  
  
 };
 </script>

@@ -11,9 +11,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JdbcUserDaoTest extends BaseDaoTest {
-    protected static final User USER_1 = new User(1, "JustinG", "hashedpassword1", "ROLE_ADMIN");
-    protected static final User USER_2 = new User(2, "PlayerOne", "hashedpassword2", "ROLE_USER");
-    private static final User USER_3 = new User(3, "GamerX", "hashedpassword3", "ROLE_USER");
+    protected static final User USER_1 = new User(1, "user1", "hashedpassword1", "user1@example.com", "ROLE_USER");
+    protected static final User USER_2 = new User(2, "user2", "hashedpassword2", "user2@example.com", "ROLE_USER");
+    private static final User USER_3 = new User(3, "user3", "hashedpassword3", "user3@example.com", "ROLE_USER");
 
     private JdbcUserDao dao;
 
@@ -59,16 +59,16 @@ public class JdbcUserDaoTest extends BaseDaoTest {
         List<User> users = dao.getUsers();
 
         assertNotNull(users, "getUsers returned a null list of users");
-        assertEquals(10, users.size(), "getUsers returned a list with the incorrect number of users");
-        assertEquals(USER_1, users.get(4), "getUsers returned a list in incorrect order");
-        assertEquals(USER_2, users.get(5), "getUsers returned a list in incorrect order");
+        assertEquals(9, users.size(), "getUsers returned a list with the incorrect number of users");
+        assertEquals(USER_1, users.get(0), "getUsers returned a list in incorrect order");
+        assertEquals(USER_2, users.get(1), "getUsers returned a list in incorrect order");
         assertEquals(USER_3, users.get(2), "getUsers returned a list in incorrect order");
     }
 
     @Test
     public void create_user_with_null_username() {
         try {
-            dao.createUser(new User(null, USER_3.getHashedPassword(), "ROLE_USER"));
+            dao.createUser(new User(null, USER_3.getHashedPassword(), "user4@example.com", "ROLE_USER"));
             fail("Expected createUser() with null username to throw DaoException, but it didn't throw any exception");
         } catch (DaoException e) {
             // expected condition
@@ -80,7 +80,7 @@ public class JdbcUserDaoTest extends BaseDaoTest {
     @Test
     public void create_user_with_existing_username() {
         try {
-            dao.createUser(new User(USER_1.getUsername(), USER_3.getHashedPassword(), "ROLE_USER"));
+            dao.createUser(new User(USER_1.getUsername(), USER_3.getHashedPassword(), USER_1.getEmail(), "ROLE_USER"));
             fail("Expected createUser() with existing username to throw DaoException, but it didn't throw any exception");
         } catch (DaoException e) {
             // expected condition
@@ -90,9 +90,21 @@ public class JdbcUserDaoTest extends BaseDaoTest {
     }
 
     @Test
+    public void create_user_with_existing_email() {
+        try {
+            dao.createUser(new User(USER_1.getUsername(), USER_3.getHashedPassword(), USER_1.getEmail(), "ROLE_USER"));
+            fail("Expected createUser() with existing email to throw DaoException, but it didn't throw any exception");
+        } catch (DaoException e) {
+            // expected condition
+        } catch (Exception e) {
+            fail("Expected createUser() with existing email to throw DaoException, but threw a different exception");
+        }
+    }
+
+    @Test
     public void create_user_with_null_password() {
         try {
-            dao.createUser(new User(USER_3.getUsername(), null, "ROLE_USER"));
+            dao.createUser(new User(USER_3.getUsername(), null, "user4@example.com", "ROLE_USER"));
             fail("Expected createUser() with null password to throw DaoException, but it didn't throw any exception");
         } catch (DaoException e) {
             // expected condition
@@ -103,7 +115,7 @@ public class JdbcUserDaoTest extends BaseDaoTest {
 
     @Test
     public void create_user_creates_a_user() {
-        User newUser = new User("new", "user", "ROLE_USER");
+        User newUser = new User("new", "user", "user4@example.com", "ROLE_USER");
 
         User user = dao.createUser(newUser);
         assertNotNull(user, "Call to create should return non-null user");

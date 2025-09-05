@@ -80,12 +80,26 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
+    public User getUserByEmail(String email) {
+        try {
+            String sql = "SELECT * FROM users WHERE email = ?";
+            SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, email);
+            if (rowSet.next()) {
+                return mapRowToUser(rowSet);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return null;
+    }
+
+    @Override
     public User createUser(User newUser) {
 
         User user = null;
         String insertUserSql = "INSERT INTO users " +
-                "(username, password_hash, role) " +
-                "VALUES (?, ?, ?) " +
+                "(username, password_hash, email, role) " +
+                "VALUES (?, ?, ?, ?) " +
                 "RETURNING user_id";
 
         if (newUser.getHashedPassword() == null) {
@@ -95,7 +109,7 @@ public class JdbcUserDao implements UserDao {
             String passwordHash = new BCryptPasswordEncoder().encode(newUser.getHashedPassword());
 
             Integer userId = jdbcTemplate.queryForObject(insertUserSql, int.class,
-                    newUser.getUsername(), passwordHash, newUser.getRole());
+                    newUser.getUsername(), passwordHash, newUser.getEmail(), newUser.getRole());
             user =  getUserById(userId);
         }
         catch (CannotGetJdbcConnectionException e) {
@@ -117,6 +131,7 @@ public class JdbcUserDao implements UserDao {
         user.setId(rs.getInt("user_id"));
         user.setUsername(rs.getString("username"));
         user.setHashedPassword(rs.getString("password_hash"));
+        user.setEmail(rs.getString("email"));
         user.setRole(rs.getString("role"));
         return user;
     }

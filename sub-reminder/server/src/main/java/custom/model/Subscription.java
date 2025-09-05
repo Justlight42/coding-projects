@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class Subscription {
 
-    private String subId;
+    private int subId;
     private int userId;
     private String subName;
     private BigDecimal cost;
@@ -13,7 +13,7 @@ public class Subscription {
     private LocalDate nextBilling;
     private String siteURL;
 
-    public Subscription(String subId, int userId, String subName, BigDecimal cost, String billingCycle, LocalDate nextBilling, String siteURL) {
+    public Subscription(int subId, int userId, String subName, BigDecimal cost, String billingCycle, LocalDate nextBilling, String siteURL) {
         this.subId = subId;
         this.userId = userId;
         this.subName = subName;
@@ -23,7 +23,7 @@ public class Subscription {
         this.siteURL = siteURL;
     }
 
-    public String getSubId() {
+    public int getSubId() {
         return subId;
     }
 
