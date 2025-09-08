@@ -7,6 +7,9 @@ import LoginView from '../views/LoginView.vue'
 import LogoutView from '../views/LogoutView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import SubscriptionView from '../views/SubscriptionView.vue'
+import UpdateSubscription from '../views/UpdateSubscription.vue'
+import AddSubscription from '../views/AddSubscription.vue'
+import AddReminder from '../views/AddReminder.vue'
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -17,6 +20,30 @@ import SubscriptionView from '../views/SubscriptionView.vue'
  * If they have (or don't need to) they're allowed to go about their way.
  */
 const routes = [
+    {
+      path: '/create-reminder',
+      name: 'AddReminder',
+      component: AddReminder,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/createSub',
+      name: 'AddSubscription',
+      component: AddSubscription,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/mySubs/:subId',
+      name: 'UpdateSubscription',
+      component: UpdateSubscription,
+      meta: {
+        requiresAuth: true
+      }
+    },
     {
       path: '/mySubs',
       name: 'SubscriptionView',

@@ -69,6 +69,7 @@ public class ReminderController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You can't create a reminder for user "
                     + sub.getUserId() + " since you are user " + currentUser);
         }
+        reminderService.checkDateLessThanBilling(newReminder);
         Reminder reminder = reminderDao.createReminder(newReminder);
         if (reminder == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to create a reminder");
@@ -79,6 +80,7 @@ public class ReminderController {
     @PutMapping(path = "/{reminderId}")
     public Reminder updateReminder(@RequestBody Reminder reminder, @PathVariable int reminderId, Principal principal) {
         checkIfOwner(reminderId, principal);
+        reminderService.checkDateLessThanBilling(reminder);
         Reminder newReminder = new Reminder(reminderId, reminder.getSubId(), reminder.getReminderDate(), reminder.isSent());
         return reminderDao.updateReminder(newReminder);
     }
@@ -91,8 +93,9 @@ public class ReminderController {
     }
 
     @GetMapping("/notify")
-    public List<SubReminderDto> getNotifications() {
-        return reminderService.getNotifications(3); // Will notify 3 days before billing date
+    public List<SubReminderDto> getNotifications(@RequestParam(defaultValue = "3") int days,
+                                                 @RequestParam(defaultValue = "false") boolean useReminderDate) {
+        return reminderService.getNotifications(days, useReminderDate); // Will notify 3 days before billing date
     }
 
     public void checkIfOwner(int reminderId, Principal principal) {

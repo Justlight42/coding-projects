@@ -58,6 +58,12 @@ public class JdbcReminderDao implements ReminderDao {
     @Override
     public Reminder createReminder(Reminder reminder) {
         try {
+            String countSql = "SELECT COUNT(*) FROM reminders WHERE sub_id = ?";
+            int count = jdbcTemplate.queryForObject(countSql, int.class, reminder.getSubId());
+            if (count > 0) {
+                throw new DaoException("This subscription already has a reminder!");
+            }
+
             String sql = "INSERT INTO reminders (sub_id, reminder_date, sent) VALUES (?, ?, ?) RETURNING reminder_id";
             int reminderId = jdbcTemplate.queryForObject(sql, int.class, reminder.getSubId(), reminder.getReminderDate(), reminder.isSent());
             return getReminderById(reminderId);
@@ -82,11 +88,17 @@ public class JdbcReminderDao implements ReminderDao {
     }
 
     @Override
-    public List<SubReminderDto> getRemindersForBilling(int days) {
+    public List<SubReminderDto> getRemindersForBilling(int days, boolean useReminderDate) {
         List<SubReminderDto> notify = new ArrayList<>();
         try {
-            String sql = REMINDERSDTO_SQL + "WHERE sub.next_billing_date = ? AND re.sent = FALSE";
+            String sql;
             LocalDate targetDate = LocalDate.now().plusDays(days);
+            if (useReminderDate) {
+                sql = REMINDERSDTO_SQL + "WHERE re.reminder_date = ? AND re.sent = FALSE";
+            } else {
+                sql = REMINDERSDTO_SQL + "WHERE sub.next_billing_date = ? AND re.sent = FALSE";
+            }
+
             SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, targetDate);
             while (rowSet.next()) {
                 notify.add(mapToSubReminderRowSet(rowSet));

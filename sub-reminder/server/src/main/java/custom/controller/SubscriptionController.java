@@ -55,9 +55,10 @@ public class SubscriptionController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Subscription createSub(@RequestBody Subscription sub, Principal principal) {
-        checkIfOwner(principal, sub);
         Subscription newSub = subDao.createSub(sub);
-        if (newSub == null) {
+        checkIfOwner(principal, sub);
+        if (newSub.getBillingCycle() == null || newSub.getSubName() == null
+                || newSub.getNextBilling() == null || newSub.getCost() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cant create this subscription");
         }
         return newSub;

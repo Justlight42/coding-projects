@@ -28,7 +28,19 @@ export function createStore(currentToken, currentUser) {
       },
       SET_SUBSCRIPTIONS(state, subs) {
         state.subscriptions = subs;
-      }
+      },
+      CREATE_SUBSCRIPTION(state, subs) {
+        state.subscriptions.push(subs);
+      },
+      DELETE_SUBSCRIPTION(state, subId) {
+        state.subscriptions = state.subscriptions.filter(sub => sub.subId != subId)
+      },
+      SET_REMINDERS(state, reminders) {
+        state.reminders = reminders;
+      },
+      CREATE_REMINDER(state, reminder) {
+        state.reminders.push(reminder);
+      },
       
 
     },

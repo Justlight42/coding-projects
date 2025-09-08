@@ -10,16 +10,16 @@
         <div class="profile-dropdown">
           <img src="/img/profile-placeholder.png" alt="Profile" @click="toggleDropdown" />
           <div v-if="showDropdown" class="dropdown-menu">
-            <router-link :to="{ name: 'SubscriptionView' }">
+            <router-link :to="{ name: 'SubscriptionView' }" @click="showDropdown = false">
               My Subscriptions
             </router-link>
-            <router-link :to="{ name: 'home' }">
+            <router-link :to="{ name: 'home' }" @click="showDropdown = false">
               Calender
             </router-link>
-            <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token">
+            <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token" @click="showDropdown = false">
               Logout
             </router-link>
-            <router-link v-bind:to="{ name: 'login' }" v-else>
+            <router-link v-bind:to="{ name: 'login' }" @click="showDropdown = false" v-else >
               Login
             </router-link>
           </div>
@@ -293,7 +293,94 @@ form span {
   gap: 10px;
 }
 
+/* VueDatePicker internal layout overrides */
+.dp__main {
+  width: 100%;
+  height: 15px;
+  max-height: none;
+  padding: 0;
+}
+.dp--header-wrap {
+  margin-bottom: -20px;
+}
 
+.dp__month_year_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.dp__calendar_header {
+  margin-bottom: 0.25rem;
+  padding: 0;
+}
+
+.dp__calendar {
+  padding: 0;
+  margin-bottom: 0.25rem;
+  row-gap: 0.25rem;
+}
+
+.dp__menu_inner {
+  margin-bottom: -40px;
+}
+
+.dp__month_year_wrap .dp__month_year_wrap {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  gap: 0.5rem;
+  margin-bottom: 0;
+}
+
+.dp__action_row {
+  margin-bottom: 0;
+}
+
+/* Fullscreen overlay */
+.popup-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+
+}
+
+/* Modal container */
+.calender-popup {
+  background-color: #fff;
+  padding: 0.75rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 340px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Buttons */
+.calender-popup .calender-cancel {
+  margin: 0.25rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.calender-confirm {
+  background-color: #3ea800;
+}
 
 
 </style>
