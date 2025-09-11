@@ -17,6 +17,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.sub-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
 
 </style>

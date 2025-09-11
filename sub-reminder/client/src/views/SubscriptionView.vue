@@ -7,10 +7,17 @@
             <router-link  :to="{name: 'AddSubscription'}">Add Subscription</router-link>
         </div>
     </div>
-    <hr />
-    <loading-spinner v-if="isLoading" :spin="isLoading" />
-    <SubscriptionList v-else :subscriptions="filterSubscription()" />
-    <ReminderItem v-for="reminder in this.$store.state.reminders" :key="reminder.reminderId" :reminder="reminder" />
+    <div class="sub-infoSection">
+        <loading-spinner v-if="isLoading" :spin="isLoading" />
+        <div id="sub-userList">
+            <SubscriptionList :subscriptions="filterSubscription()" />
+        </div>
+        <div id="sub-userReminder">
+            <h2 id="reminder-text">Reminders</h2>
+            <hr />
+            <ReminderItem id="sub-reminderInfo" v-for="reminder in this.$store.state.reminders" :key="reminder.reminderId" :reminder="reminder" />
+        </div>
+    </div>
   </div>
 </template>
 
@@ -67,11 +74,16 @@ export default {
 
 <style scoped>
 
+.sub-view {
+    height: 95%;
+}
+
 .sub-topView {
     display: flex;
     padding: 2px;
     align-content: center;
     height: 40px;
+    grid-area: topBar;
 }
 
 .sub-links {
@@ -80,6 +92,44 @@ export default {
     height: auto;
     margin-left: auto;
     gap: 10px;
+}
+
+.sub-infoSection {
+    display: grid;
+    grid-template-columns: 1fr 0.3fr;
+    grid-template-areas: "subLeft subRight";
+    column-gap: 10px;
+    height: 100%;
+}
+
+#sub-userList {
+    grid-area: subLeft;
+}
+
+#sub-userReminder {
+    grid-area: subRight;
+    border: 3px solid #ddd;
+    padding: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    border-radius: 8px;
+    height: 100%;
+}
+
+#reminder-text {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    padding: 5px;
+}
+
+#sub-reminderInfo {
+    margin-left: 10px;
+    padding: 5px;
+}
+
+#sub-userReminder h2 {
+    font-size: 1.5rem;
 }
 
 </style>

@@ -23,8 +23,8 @@ public class ReminderService {
         this.subscriptionDao = subscriptionDao;
     }
 
-    public List<SubReminderDto> getNotifications(int days, boolean useReminderDate) {
-        List<SubReminderDto> reminders = reminderDao.getRemindersForBilling(days, useReminderDate);
+    public List<SubReminderDto> getNotifications(int days) {
+        List<SubReminderDto> reminders = reminderDao.getRemindersForBilling(days);
 
         for (SubReminderDto remind: reminders) {
             reminderDao.setSentToTrue(remind.getReminderId());
@@ -34,8 +34,7 @@ public class ReminderService {
 
     @Scheduled(cron = "0 0 8 * * ?") // 08:00 AM
     public void autoSendNotifications() {
-        getNotifications(0, true);
-        getNotifications(3, false);
+        getNotifications(0);
     }
 
     public boolean checkDateLessThanBilling(Reminder reminder) {

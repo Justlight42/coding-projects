@@ -88,17 +88,11 @@ public class JdbcReminderDao implements ReminderDao {
     }
 
     @Override
-    public List<SubReminderDto> getRemindersForBilling(int days, boolean useReminderDate) {
+    public List<SubReminderDto> getRemindersForBilling(int days) {
         List<SubReminderDto> notify = new ArrayList<>();
         try {
-            String sql;
+            String sql = REMINDERSDTO_SQL + "WHERE re.reminder_date = ? AND re.sent = FALSE";
             LocalDate targetDate = LocalDate.now().plusDays(days);
-            if (useReminderDate) {
-                sql = REMINDERSDTO_SQL + "WHERE re.reminder_date = ? AND re.sent = FALSE";
-            } else {
-                sql = REMINDERSDTO_SQL + "WHERE sub.next_billing_date = ? AND re.sent = FALSE";
-            }
-
             SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, targetDate);
             while (rowSet.next()) {
                 notify.add(mapToSubReminderRowSet(rowSet));

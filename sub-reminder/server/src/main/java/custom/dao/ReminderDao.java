@@ -15,7 +15,7 @@ public interface ReminderDao {
 
     Reminder updateReminder(Reminder reminder);
 
-    List<SubReminderDto> getRemindersForBilling(int days, boolean useReminderDate); // To Send Notifications # before the billing date or use auto reminder date
+    List<SubReminderDto> getRemindersForBilling(int days);
 
     Boolean setSentToTrue(int reminderId);
 

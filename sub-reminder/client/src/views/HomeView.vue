@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-      
+      Fill in with intro section.
   </div>
 </template>
 
@@ -14,15 +14,6 @@ export default {
 </script>
 
 <style scoped>
-
-.home {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  height: 100%
-}
 
 
 

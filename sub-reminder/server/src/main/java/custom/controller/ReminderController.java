@@ -93,9 +93,8 @@ public class ReminderController {
     }
 
     @GetMapping("/notify")
-    public List<SubReminderDto> getNotifications(@RequestParam(defaultValue = "3") int days,
-                                                 @RequestParam(defaultValue = "false") boolean useReminderDate) {
-        return reminderService.getNotifications(days, useReminderDate); // Will notify 3 days before billing date
+    public List<SubReminderDto> getNotifications(@RequestParam int days) {
+        return reminderService.getNotifications(days);
     }
 
     public void checkIfOwner(int reminderId, Principal principal) {

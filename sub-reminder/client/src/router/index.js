@@ -10,6 +10,7 @@ import SubscriptionView from '../views/SubscriptionView.vue'
 import UpdateSubscription from '../views/UpdateSubscription.vue'
 import AddSubscription from '../views/AddSubscription.vue'
 import AddReminder from '../views/AddReminder.vue'
+import UpdateReminder from '../views/UpdateReminder.vue'
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -20,6 +21,14 @@ import AddReminder from '../views/AddReminder.vue'
  * If they have (or don't need to) they're allowed to go about their way.
  */
 const routes = [
+    {
+      path: '/update-reminder/:reminderId',
+      name: 'UpdateReminder',
+      component: UpdateReminder,
+      meta: {
+        requiresAuth: true
+      }
+    },
     {
       path: '/create-reminder',
       name: 'AddReminder',

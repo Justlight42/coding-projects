@@ -41,7 +41,9 @@ export function createStore(currentToken, currentUser) {
       CREATE_REMINDER(state, reminder) {
         state.reminders.push(reminder);
       },
-      
+      DELETE_REMINDER(state, reminderId) {
+        state.reminders = state.reminders.filter(re => re.reminderId != reminderId);
+      },
 
     },
 

@@ -1,14 +1,16 @@
 <template>
-  <div id="createReminder">
-    <form v-on:submit.prevent="createReminder">
-      <h1>Create A Reminder</h1>
+  <div id="updateReminder">
+    <form v-on:submit.prevent="updateReminder">
+      <h1>Update A Reminder</h1>
       <div id="fields">
         <label for="subName">Subscription Name</label>
-        <select v-model="reminder.subId" id="subName">
-            <option v-for="sub in subscriptions" :key="sub.subId" :value="sub.subId">
-                {{ sub.subName }}
-            </option>
-        </select>
+        <input 
+          type="text"
+          id="subName"
+          v-model="reminder.subName"
+          :key="reminder.subName"
+          readonly
+          />
         <label for="reminderDate">Reminder Date</label>
         <input
           type="text"
@@ -32,7 +34,7 @@
             Set reminders 3 days before billing date
         </label>
         <div class="submit-button">
-          <button type="submit">Create Reminder</button>
+          <button type="submit">Update Reminder</button>
         </div>
       </div>
     </form>
@@ -52,11 +54,13 @@ export default {
     data() {
         return {
             reminder: {
+                reminderId: this.$route.params.reminderId,
                 subId: '',
+                subName: '',
                 reminderDate: '',
-                sent: false
+                sent: ''
             },
-            subscriptions: [],
+            sub: {},
             showPicker: false,
             autoReminder: false
         }
@@ -67,30 +71,45 @@ export default {
         }
     },
     methods: {
-        getAllSubsByUserId() {
-            SubscriptionService.getAllSubsByUserId(this.$store.state.user.id).then((response) => {
-                this.subscriptions = response.data;
+        getReminderById() {
+            const reminderId = this.$route.params.reminderId;
+            ReminderService.getReminderById(reminderId).then((response) => {
+                this.reminder.subId = response.data.subId;
+                this.reminder.reminderDate = new Date(response.data.reminderDate.replace(/-/g, '/'));
+                this.reminder.sent = response.data.sent;
+                this.getSubById(this.reminder.subId);
             })
             .catch((error) => {
-                console.log('Error has occurred getting all subscriptions for a user', error)
+                console.log('Error has occurred getting the reminder by ID', error)
             })
         },
-        createReminder() {
+        getSubById(subId) {
+            if (!subId) {
+                return //Makes sure getReminders can load first
+            }
+            SubscriptionService.getSubById(subId).then((response) => {
+                this.sub = response.data;
+                this.reminder.subName = response.data.subName;
+            })
+            .catch((error) => {
+                console.log('Error has occurred getting the subscription by ID', error)
+            })
+        },
+        updateReminder() {
             const formatDate = new Date(this.reminder.reminderDate);
             this.reminder.reminderDate = `${formatDate.getFullYear()}-${String(formatDate.getMonth() + 1).padStart(2, '0')}-${String(formatDate.getDate()).padStart(2, '0')}`;
 
-            ReminderService.createReminder(this.reminder).then((response) => {
-                this.$store.commit('CREATE_REMINDER', response.data)
+            ReminderService.updateReminder(this.reminder, this.reminder.reminderId).then((response) => {
                 this.$router.back();
             })
             .catch((error) => {
-                console.log('Error has occurred creating a reminder', error)
+                console.log('Error has occurred updating a reminder', error)
             })
         },
         setAutoReminder() {
-            const selectedSub = this.subscriptions.find(sub => sub.subId === this.reminder.subId);
-            if (selectedSub && selectedSub.nextBilling) {
-                const billingDate = new Date(selectedSub.nextBilling.replace(/-/g, '/'));
+            const sub = this.sub;
+            if (sub && sub.nextBilling) {
+                const billingDate = new Date(sub.nextBilling.replace(/-/g, '/'));
                 const today = new Date();
                 const timeDifference = billingDate.getTime() - today.getTime();
                 const dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
@@ -104,7 +123,7 @@ export default {
         },
     },
     created() {
-        this.getAllSubsByUserId();
+        this.getReminderById();
     }
 }
 </script>
